@@ -100,10 +100,6 @@ export const registerValidator = validate(
                     return true
                 }
             }
-            
-            
-            
-    
         },
         date_of_birth: {
             isISO8601: {
