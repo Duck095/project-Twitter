@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express' //import express vào dự án
 import usersRoute from './routes/users.routes'   
 import databaseService from './services/database.services'
+import { defaultErrorHandler } from './middlewares/error.middlewares'
 
 const app = express() //dùng express tạo 1 server
 
@@ -17,10 +18,7 @@ app.get("/", (req, res) => {
 app.use('/users', usersRoute)
 // localhost:3000.users/tweets
 
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  console.log('error handler tổng nè');
-  res.status(400).json({ message: err.message })
-})
+app.use(defaultErrorHandler)
 
 
 app.listen(PORT, () => {
