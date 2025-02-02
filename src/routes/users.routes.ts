@@ -5,6 +5,12 @@ import { wrapAsync } from "~/utils/handlers"
 
 const usersRoute = Router()
 
+/*
+des: đăng nhập
+path: /users/login
+method: POST
+body: {email, password}
+*/
 usersRoute.get('/login', loginValidator, loginController)
 
 /*
@@ -20,6 +26,7 @@ body:{
     
 }
 */
+
 usersRoute.post('/register', registerValidator, wrapAsync(registerController))
 
 export default usersRoute

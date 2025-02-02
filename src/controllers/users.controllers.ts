@@ -5,21 +5,18 @@ import usersService from '~/services/users.services'
 import { ParamsDictionary } from 'express-serve-static-core'
 import { RegisterReqBody  } from '~/models/requests/User.requests'
 
-export const loginController = (req: Request, res: Response) => {
-    const { email, password } = req.body 
+export const loginController = async (req: Request, res: Response) => {
+    // lấy user_id từ user của req
+    const {user}:any = req
+    const user_id = user._id
 
-    if (email == 'trungduc9564@gmail.com' && password == 'Trungduc09052004') {
-        return res.json({
-            message: 'Login successfully',
-            result: [
-                {name: 'Duck', yob: 2004},
-                {name: 'Én', yob: 2007},
-                {name: 'Love', yob: 2024}
-            ]
-        })   
-    }
-    return res.status(400).json({
-        error: 'Login failed'
+    // dùng user_id tạo access_token và refresh_token 
+    const result = await usersService.login(user_id.toString())
+
+    // res access_token và refresh_token cho client
+    res.json({
+        message: 'login successfully',
+        result
     })
 }
 
